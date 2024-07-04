@@ -56,23 +56,6 @@ O **File Commander** é uma aplicação desenvolvida em Python para facilitar a 
     - Pressione Enter para selecionar um arquivo.
     - Escolha opções para mover arquivos ou abrir arquivos diretamente do programa.
 
-### Exemplo de Uso
-
-```sh
-Lista de arquivos:
-1. arquivo1.txt
-2. arquivo2.jpg
-3. pasta1
-Digite o número do arquivo ou pasta para abrir: 1
-Arquivo selecionado: arquivo1.txt
-Opções:
-1. Mover para Pasta A
-2. Mover para Pasta B
-3. Abrir Arquivo
-Escolha uma opção: 3
-Arquivo 'arquivo1.txt' aberto com sucesso!
-```
-
 ## 📦 Dependências
 
 Este projeto não possui dependências externas além do Python padrão.
