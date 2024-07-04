@@ -25,10 +25,13 @@ class FileBrowserApp:
         self.file_label.pack(pady=10)
         self.file_label.bind("<Button-1>", self.copy_filename_to_clipboard)
 
-        self.move_button1 = tk.Button(root, text="Mover para Pasta 1", command=self.move_file_to_folder1)
+        self.code1_button = None
+        self.code2_button = None
+
+        self.move_button1 = tk.Button(root, text="JA INSERIDO", command=self.move_file_to_folder1)
         self.move_button1.pack(pady=10)
 
-        self.move_button2 = tk.Button(root, text="Mover para Pasta 2", command=self.move_file_to_folder2)
+        self.move_button2 = tk.Button(root, text="INSERIR", command=self.move_file_to_folder2)
         self.move_button2.pack(pady=10)
 
         self.open_button = tk.Button(root, text="Abrir Arquivo", command=self.open_file_or_folder)
@@ -50,15 +53,18 @@ class FileBrowserApp:
 
     def update_file_label(self):
         if self.files:
-            self.file_label.config(text=self.files[self.current_index])
+            current_file = self.files[self.current_index]
+            self.file_label.config(text=current_file)
             self.move_button1.config(state=tk.NORMAL)
             self.move_button2.config(state=tk.NORMAL)
             self.open_button.config(state=tk.NORMAL)
+            self.show_code_buttons(current_file)
         else:
             self.file_label.config(text="")
             self.move_button1.config(state=tk.DISABLED)
             self.move_button2.config(state=tk.DISABLED)
             self.open_button.config(state=tk.DISABLED)
+            self.hide_code_buttons()
 
     def update_buttons(self):
         if self.current_index > 0:
@@ -87,7 +93,6 @@ class FileBrowserApp:
         filename = self.file_label.cget("text")
         self.root.clipboard_clear()
         self.root.clipboard_append(filename)
-        messagebox.showinfo("Copiado", f"Nome do arquivo '{filename}' copiado para a área de transferência!")
 
     def move_file_to_folder1(self):
         if not self.destination_folder1:
@@ -154,6 +159,28 @@ class FileBrowserApp:
                     subprocess.Popen(['xdg-open', first_file_path])
             else:
                 messagebox.showwarning("Aviso", f"A pasta '{selected_item}' está vazia!")
+
+    def show_code_buttons(self, filename):
+        self.hide_code_buttons()
+        if "_ou_" in filename:
+            codes = filename.split("_ou_")
+            if len(codes) == 2:
+                self.code1_button = tk.Button(self.root, text=codes[0], command=lambda: self.copy_code(codes[0]))
+                self.code2_button = tk.Button(self.root, text=codes[1], command=lambda: self.copy_code(codes[1]))
+                self.code1_button.pack(side=tk.LEFT, padx=10)
+                self.code2_button.pack(side=tk.LEFT, padx=10)
+
+    def hide_code_buttons(self):
+        if self.code1_button:
+            self.code1_button.pack_forget()
+            self.code1_button = None
+        if self.code2_button:
+            self.code2_button.pack_forget()
+            self.code2_button = None
+
+    def copy_code(self, code):
+        self.root.clipboard_clear()
+        self.root.clipboard_append(code)
 
 if __name__ == "__main__":
     root = tk.Tk()
