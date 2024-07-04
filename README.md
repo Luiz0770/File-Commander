@@ -71,7 +71,7 @@ Opções:
 3. Abrir Arquivo
 Escolha uma opção: 3
 Arquivo 'arquivo1.txt' aberto com sucesso!
-
+```
 
 ## 📦 Dependências
 
